@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Chaudhary Sons & Co.</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="site-header">
+    <div class="header-top">
+      <a href="index.html" class="brand" id="brand-logo">
+        <span class="brand-icon">✦</span>
+        <span class="brand-name">Chaudhary Sons &amp; Co.</span>
+        <span class="brand-sub">Est. 1974</span>
+      </a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="header-bottom">
+      <nav class="main-nav" id="main-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html#collections-section" class="nav-link">Collections</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1 class="page-title">Get in Touch</h1>
+    <p class="page-subtitle">We would love to hear from you. Whether you have a question about our collections, shipping, or bespoke services.</p>
+  </div>
+
+  <main class="contact-layout">
+    <div class="contact-info reveal">
+      <h3>Contact Information</h3>
+      
+      <div class="contact-detail">
+        <h4>Head Office & Showroom</h4>
+        <p>94 / C-2 Asalatpura Moradabad,<br>244001 India</p>
+      </div>
+
+      <div class="contact-detail">
+        <h4>Direct Inquiries</h4>
+        <p>Email: moobaid605@gmail.com<br>Phone: +91 89549 40821</p>
+      </div>
+
+      <div class="contact-detail">
+        <h4>Business Hours</h4>
+        <p>Monday - Friday: 9:00 AM - 6:00 PM (IST)<br>Saturday: 10:00 AM - 4:00 PM (IST)<br>Sunday: Closed</p>
+      </div>
+    </div>
+
+    <div class="form-container reveal">
+      <div class="form-header">
+        <h2>Send us a Message</h2>
+        <p>We typically respond within 24 business hours.</p>
+      </div>
+      <form action="#" method="POST" class="contact-form">
+        <div class="form-group">
+          <label class="form-label" for="name">Full Name</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Jane Doe" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="jane@example.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" class="form-control" placeholder="How can we help?" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Message</label>
+          <textarea id="message" name="message" class="form-control" placeholder="Describe your inquiry..." rows="6" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message &nbsp;→</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-icon">✦</span>
+        <h3 class="footer-brand-name">Chaudhary Sons &amp; Co.</h3>
+        <p class="footer-brand-desc">Excellence in metal handicrafts since 1974.</p>
+      </div>
+      <div class="footer-links">
+        <div class="link-group">
+          <h4>Explore</h4>
+          <a href="about.html">About Us</a>
+          <a href="gallery.html">Gallery</a>
+        </div>
+        <div class="link-group">
+          <h4>Support</h4>
+          <a href="contact.html">Contact Us</a>
+          <a href="#">Shipping & Returns</a>
+          <a href="#">FAQ</a>
+        </div>
+        <div class="link-group">
+          <h4>Contact</h4>
+          <p>moobaid605@gmail.com</p>
+          <p>+91 89549 40821</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Chaudhary Sons & Co. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
