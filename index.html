@@ -6,6 +6,8 @@
   <title>Chaudhary Sons &amp; Co. — Exquisite Metal Handicrafts Since 1974</title>
   <meta name="description" content="Chaudhary Sons & Co. is a premier manufacturer of exquisite metal handicrafts, delivering unmatched artistry and quality since 1974." />
   <link rel="stylesheet" href="style.css" />
+  <!-- Preload LCP hero image so it starts fetching immediately -->
+  <link rel="preload" as="image" href="./assets/hero-bg.webp" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
@@ -39,7 +41,14 @@
   <!-- HERO -->
   <section class="hero" id="hero-section">
     <div class="hero-bg">
-      <img src="hero-bg.png" alt="Exquisite metal handicraft collection by Chaudhary Sons &amp; Co." />
+      <img
+        src="./assets/hero-bg.webp"
+        alt="Exquisite metal handicraft collection by Chaudhary Sons &amp; Co."
+        width="1920"
+        height="1080"
+        decoding="async"
+        fetchpriority="high"
+      />
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content">

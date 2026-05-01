@@ -65,6 +65,29 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Improve text rendering without forcing repaints */
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Scroll-performance: pause expensive effects while scrolling ── */
+/* JS adds .is-scrolling to <html> during active scroll, removes after 120ms */
+.is-scrolling .site-header {
+  /* Freeze the header's own transitions during scroll — no mid-scroll stutter */
+  transition: none !important;
+}
+
+.is-scrolling .site-header.scrolled {
+  /* Temporarily suppress the blur while scrolling to unblock the GPU */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Suppress hover transitions/shadows during active scroll */
+.is-scrolling .tile-image,
+.is-scrolling .btn,
+.is-scrolling .value-card,
+.is-scrolling .nav-link::after {
+  transition: none !important;
 }
 
 body {
@@ -73,6 +96,8 @@ body {
   color: var(--ink);
   line-height: 1.6;
   overflow-x: hidden;
+  /* Ensure the entire page is a single GPU layer tree root */
+  -webkit-overflow-scrolling: touch;
 }
 
 a {
@@ -84,6 +109,8 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+  /* Prevent layout shifts from image loads */
+  content-visibility: auto;
 }
 
 button {
@@ -99,21 +126,27 @@ button {
    HEADER
    ======================================================== */
 .site-header {
-  position: relative; /* Separate header, pushes hero down */
+  /* sticky keeps the header in document flow at all times — no layout shift */
+  position: sticky;
+  top: 0;
   width: 100%;
   z-index: 1000;
   background: var(--ivory);
   box-shadow: 0 1px 0 var(--sage-200);
+  /* Promote to GPU layer for smooth transform hide/show */
+  will-change: transform;
+  transition: transform 0.4s var(--ease-out-expo),
+              background 0.3s ease,
+              box-shadow 0.3s ease,
+              backdrop-filter 0.3s ease;
 }
 
+/* .scrolled adds visual effects only — NO position change, NO layout shift */
 .site-header.scrolled {
-  position: fixed;
-  top: 0;
   background: rgba(253, 252, 250, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 var(--sage-200), 0 8px 32px rgba(26, 29, 26, 0.06);
-  transition: transform 0.4s var(--ease-out-expo), background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .site-header.header-hidden {
@@ -297,6 +330,8 @@ button {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  /* Isolate hero's paint zone — changes inside don't trigger full-page repaints */
+  contain: layout paint style;
 }
 
 
@@ -312,6 +347,9 @@ button {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  /* GPU-promote the hero image to its own layer — keeps it compositor-only */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .hero-overlay {
@@ -332,6 +370,7 @@ button {
   animation: fadeUp 1.2s var(--ease-out-expo) 0.3s both;
 }
 
+/* fadeUp: only animates transform+opacity — compositor thread, zero layout cost */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -438,12 +477,15 @@ button {
   background: var(--sage-600);
   color: var(--white);
   border: 1.5px solid var(--sage-600);
+  /* Promote button to own layer — translateY on hover stays compositor-only */
+  will-change: transform;
 }
 
 .btn-primary:hover {
   background: var(--sage-700);
   border-color: var(--sage-700);
-  box-shadow: 0 10px 30px rgba(107, 126, 95, 0.2);
+  /* box-shadow on hover: use filter:drop-shadow instead to keep on GPU */
+  filter: drop-shadow(0 10px 20px rgba(107, 126, 95, 0.25));
   transform: translateY(-4px);
 }
 
@@ -451,6 +493,7 @@ button {
   background: transparent;
   color: var(--ink);
   border: 1.5px solid var(--ink-30);
+  will-change: transform;
 }
 
 .btn-outline:hover {
@@ -636,18 +679,17 @@ button {
 .placeholder-img::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.2) 50%, transparent 55%);
-  background-size: 200% 200%;
-  animation: shimmer 3s infinite linear;
+  inset: 0;
+  /* Use transform instead of background-position — runs on compositor thread */
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.22) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: shimmer 2.2s infinite linear;
 }
 
+/* Shimmer uses translateX — compositor-only, zero layout cost */
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
 }
 
 /* ========================================================
@@ -656,6 +698,10 @@ button {
 .collections {
   padding: var(--space-4xl) 0;
   background: var(--ivory);
+  /* content-visibility skips layout/paint for off-screen sections */
+  content-visibility: auto;
+  /* Hint browser on approximate height to avoid scroll position jumps */
+  contain-intrinsic-size: 0 600px;
 }
 
 .collections-carousel-wrapper {
@@ -690,12 +736,15 @@ button {
   width: 100%;
   border-radius: 4px;
   margin-bottom: var(--space-md);
-  transition: transform var(--transition-med), box-shadow var(--transition-med);
+  /* Only animate transform — GPU composited. box-shadow causes repaint, use filter instead */
+  transition: transform var(--transition-med), filter var(--transition-med);
+  will-change: transform;
 }
 
 .collection-tile:hover .tile-image {
   transform: translateY(-8px);
-  box-shadow: 0 15px 30px rgba(107, 126, 95, 0.15);
+  /* filter:drop-shadow is GPU-composited; box-shadow causes a full repaint */
+  filter: drop-shadow(0 15px 20px rgba(107, 126, 95, 0.18));
 }
 
 .tile-title {
@@ -726,6 +775,8 @@ button {
 .about {
   padding: var(--space-4xl) var(--space-xl);
   background: var(--sage-100);
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
 }
 
 .about-inner {
@@ -761,6 +812,8 @@ button {
 .values-section {
   padding: var(--space-4xl) var(--space-xl);
   background: var(--ivory);
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
 }
 
 .values-grid {
@@ -777,6 +830,7 @@ button {
   background: var(--sage-100);
   border-radius: 4px;
   transition: transform var(--transition-med);
+  will-change: transform;
 }
 
 .value-card:hover {
@@ -1017,40 +1071,6 @@ textarea.form-control {
   margin: 0 auto;
 }
 
-/* Contact Layout */
-.contact-layout {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: var(--space-4xl);
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--space-xl) var(--space-4xl);
-}
-
-.contact-info h3 {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  color: var(--ink);
-  margin-bottom: var(--space-md);
-}
-
-.contact-detail {
-  margin-bottom: var(--space-lg);
-}
-
-.contact-detail h4 {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--sage-600);
-  margin-bottom: var(--space-xs);
-}
-
-.contact-detail p {
-  color: var(--ink-70);
-  line-height: 1.6;
-}
-
 /* Gallery Masonry/Grid */
 .gallery-grid {
   display: grid;
@@ -1066,6 +1086,7 @@ textarea.form-control {
   width: 100%;
   overflow: hidden;
   border-radius: 2px;
+  contain: layout paint;
 }
 
 .gallery-img {
@@ -1073,86 +1094,390 @@ textarea.form-control {
   height: 100%;
   object-fit: cover;
   transition: transform var(--transition-slow);
+  will-change: transform;
 }
 
 .gallery-item:hover .gallery-img {
   transform: scale(1.05);
 }
 
+/* Contact Layout */
+.contact-page {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 900px;
+}
+
+.contact-layout {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: var(--space-3xl);
+  padding: var(--space-xl) var(--space-xl) var(--space-4xl);
+  align-items: start;
+}
+
+/* --- Contact Sidebar --- */
+.contact-sidebar {
+  background: var(--sage-900);
+  color: var(--sage-200);
+  padding: var(--space-3xl);
+  border-radius: 6px;
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-xl));
+}
+
+.sidebar-section {
+  padding: var(--space-sm) 0;
+}
+
+.sidebar-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sage-400);
+  margin-bottom: var(--space-md);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-section:hover .sidebar-icon {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--ivory);
+}
+
+.sidebar-label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  margin-bottom: 6px;
+}
+
+.sidebar-text {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--sage-300);
+}
+
+.sidebar-link {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--sage-300);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-block;
+}
+
+.sidebar-link:hover {
+  color: var(--ivory);
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  margin: var(--space-lg) 0;
+}
+
+/* Hours grid */
+.hours-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 16px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 300;
+}
+
+.hours-day {
+  color: var(--sage-300);
+}
+
+.hours-time {
+  color: var(--sage-400);
+  text-align: right;
+}
+
+.hours-time.closed {
+  color: rgba(220, 120, 120, 0.8);
+}
+
+/* Sidebar CTA */
+.sidebar-cta {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.sidebar-cta-text {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--sage-400);
+  margin-bottom: var(--space-md);
+}
+
+.sidebar-btn {
+  width: 100%;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--ivory);
+  padding: 0.8rem 1.6rem;
+  font-size: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.sidebar-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--ivory);
+}
+
+.sidebar-btn svg {
+  flex-shrink: 0;
+}
+
+/* --- Form Card --- */
+.contact-form-wrapper {
+  /* wrapper for reveal animation */
+}
+
+.form-card {
+  background: var(--white);
+  border: 1px solid var(--sage-200);
+  border-radius: 6px;
+  padding: var(--space-3xl);
+  box-shadow: 0 1px 3px rgba(26, 29, 26, 0.04);
+}
+
+.form-header {
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--sage-200);
+}
+
+.form-header h2 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+}
+
+.form-header p {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--sage-600);
+  line-height: 1.6;
+}
+
+/* --- Form Grid --- */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+
+.form-group {
+  margin-bottom: var(--space-lg);
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sage-700);
+  margin-bottom: 8px;
+}
+
+.required {
+  color: var(--sage-500);
+  font-weight: 400;
+}
+
+/* Input wrapper with icon */
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sage-400);
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.form-control {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--sage-300);
+  border-radius: 4px;
+  background: var(--ivory);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--ink);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  -webkit-appearance: none;
+}
+
+.form-control.has-icon {
+  padding-left: 44px;
+}
+
+.form-control::placeholder {
+  color: var(--ink-30);
+  font-weight: 300;
+}
+
+.form-control:hover {
+  border-color: var(--sage-400);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--sage-600);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(107, 126, 95, 0.1);
+}
+
+.form-control:focus ~ .input-icon,
+.input-wrapper:focus-within .input-icon {
+  color: var(--sage-600);
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 140px;
+  line-height: 1.6;
+}
+
+/* Select dropdown */
+.select-wrapper {
+  position: relative;
+}
+
+.form-select {
+  cursor: pointer;
+  padding-right: 44px;
+}
+
+.form-select option[disabled] {
+  color: var(--ink-30);
+}
+
+.select-chevron {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sage-400);
+  pointer-events: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.select-wrapper:focus-within .select-chevron {
+  color: var(--sage-600);
+}
+
+/* Character hint */
+.char-hint {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--sage-500);
+  letter-spacing: 0.02em;
+}
+
+/* Form actions */
+.form-actions {
+  margin-top: var(--space-xl);
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 16px 32px;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 4px;
+}
+
+.btn-arrow {
+  transition: transform 0.3s var(--ease-out-expo);
+  flex-shrink: 0;
+}
+
+.btn-submit:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+.form-disclaimer {
+  margin-top: var(--space-md);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--sage-500);
+  text-align: center;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+/* --- Contact Page Responsive --- */
 @media (max-width: 991px) {
   .contact-layout {
     grid-template-columns: 1fr;
     gap: var(--space-2xl);
   }
+
+  .contact-sidebar {
+    position: static;
+    order: 2;
+  }
+
+  .contact-form-wrapper {
+    order: 1;
+  }
 }
 
-/* --- Contact Page Enhancements --- */
-.contact-layout {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: var(--space-4xl);
-  padding: var(--space-2xl) var(--space-xl) var(--space-4xl);
-}
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 
-.contact-info {
-  background: var(--sage-100);
-  padding: var(--space-3xl);
-  border-radius: 4px;
-}
+  .form-card {
+    padding: var(--space-xl);
+  }
 
-.contact-info h3 {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: var(--space-2xl);
-}
-
-.contact-detail {
-  margin-bottom: var(--space-2xl);
-}
-
-.contact-detail h4 {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--sage-600);
-  margin-bottom: var(--space-xs);
-}
-
-.contact-detail p {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 300;
-  line-height: 1.6;
-  color: var(--ink-70);
-}
-
-.form-container {
-  padding: 0;
-}
-
-.form-header {
-  margin-bottom: var(--space-2xl);
-}
-
-.form-header h2 {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 300;
-  color: var(--ink);
-  margin-bottom: var(--space-xs);
-}
-
-.form-header p {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  color: var(--sage-700);
+  .contact-sidebar {
+    padding: var(--space-xl);
+  }
 }
 
 
@@ -1191,16 +1516,20 @@ textarea.form-control {
   opacity: 1;
 }
 
-/* --- Animations --- */
+/* --- Scroll Reveal: opacity+transform only — compositor thread, no layout cost --- */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+  transform: translateY(28px);
+  /* will-change only on elements about to animate; removed by JS after animation via .visible */
+  will-change: opacity, transform;
+  transition: opacity 0.75s var(--ease-out-expo), transform 0.75s var(--ease-out-expo);
 }
 
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+  /* Release will-change after animation completes to free GPU memory */
+  will-change: auto;
 }
 
 /* --- Hero Stats v2 --- */
@@ -1290,6 +1619,8 @@ textarea.form-control {
 .process-section {
   padding: var(--space-4xl) var(--space-xl);
   background: var(--sage-100);
+  content-visibility: auto;
+  contain-intrinsic-size: 0 550px;
 }
 
 .process-steps {
@@ -1373,6 +1704,8 @@ textarea.form-control {
 .testimonials-section {
   padding: var(--space-4xl) var(--space-xl);
   background: var(--white);
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
 }
 
 .testimonials-grid {
