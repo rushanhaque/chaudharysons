@@ -1,5 +1,5 @@
 /* ========================================================
-   CHAUDHARY SONS & CO. — app.js v3.0 (Performance Optimised)
+   CHOUDHRY SONS EXPORTS — app.js v3.0 (Performance Optimised)
    ======================================================== */
 
 'use strict';
@@ -41,7 +41,35 @@ function _flushScroll() {
 }
 
 /* ── DOMContentLoaded ──────────────────────────────── */
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+/* ── Testimonial Slider ─────────────────────────────── */
+function initTestimonialSlider() {
+  const track = document.getElementById('testimonials-track');
+  const slides = document.querySelectorAll('.testimonial-slide');
+  if (!track || slides.length === 0) return;
+
+  let currentIndex = 0;
+  const slideCount = slides.length;
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slideCount;
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  // Auto swipe every 5 seconds
+  setInterval(nextSlide, 5000);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Prevent jumping to section on refresh
+  if (window.location.hash) {
+    window.scrollTo(0, 0);
+    history.replaceState(null, null, window.location.pathname);
+  }
+
   initImages();
   initHeader();
   initMobileMenu();
@@ -49,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initCounters();
   initCarousel();
+  initTestimonialSlider();
 });
 
 /* ── Async image decoding ──────────────────────────── */
@@ -76,18 +105,12 @@ function initHeader() {
   const header = document.getElementById('site-header');
   if (!header) return;
 
-  let lastY     = 0;
-  let scheduled = false;
-
-  // Read scroll position inside RAF — no layout thrash
-  _scrollCbs.push(y => {
-    header.classList.toggle('scrolled', y > 80);
-    if (y > 350) {
-      header.classList.toggle('header-hidden', y > lastY);
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
     } else {
-      header.classList.remove('header-hidden');
+      header.classList.remove('scrolled');
     }
-    lastY = y;
   });
 }
 
