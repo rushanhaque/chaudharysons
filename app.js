@@ -1,13 +1,16 @@
 /* ========================================================
-   CHOUDHRY SONS EXPORTS — app.js v3.0 (Performance Optimised)
+   CHOUDHRY SONS EXPORTS — app.js v7.0 (Simple Image Lightbox)
    ======================================================== */
 
 'use strict';
 
-/* ── Scroll-end detection (shared) ─────────────────── */
+/* ── Shared State ───────────────────────────────────── */
 let _scrollEndTimer = null;
 let _isScrolling   = false;
+let _rafScheduled = false;
+const _scrollCbs = [];
 
+/* ── Scroll handling ────────────────────────────────── */
 function onScrollStart() {
   if (!_isScrolling) {
     _isScrolling = true;
@@ -20,8 +23,6 @@ function onScrollEnd() {
   document.documentElement.classList.remove('is-scrolling');
 }
 
-// Single shared passive scroll listener; dispatches RAF work per module
-const _scrollCbs = [];
 window.addEventListener('scroll', () => {
   onScrollStart();
   clearTimeout(_scrollEndTimer);
@@ -33,7 +34,6 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-let _rafScheduled = false;
 function _flushScroll() {
   _rafScheduled = false;
   const y = window.scrollY;
@@ -41,29 +41,11 @@ function _flushScroll() {
 }
 
 /* ── DOMContentLoaded ──────────────────────────────── */
-if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'manual';
-}
-
-/* ── Testimonial Slider ─────────────────────────────── */
-function initTestimonialSlider() {
-  const track = document.getElementById('testimonials-track');
-  const slides = document.querySelectorAll('.testimonial-slide');
-  if (!track || slides.length === 0) return;
-
-  let currentIndex = 0;
-  const slideCount = slides.length;
-
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % slideCount;
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+document.addEventListener('DOMContentLoaded', () => {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
   }
 
-  // Auto swipe every 5 seconds
-  setInterval(nextSlide, 5000);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
   // Prevent jumping to section on refresh
   if (window.location.hash) {
     window.scrollTo(0, 0);
@@ -78,21 +60,19 @@ document.addEventListener('DOMContentLoaded', () => {
   initCounters();
   initCarousel();
   initTestimonialSlider();
+  initSimpleProductModal();
 });
 
 /* ── Async image decoding ──────────────────────────── */
 function initImages() {
   document.querySelectorAll('img').forEach(img => {
     img.decoding = 'async';
-    // Prevent layout shift: if no explicit size, set loading=lazy for below-fold
     if (!img.hasAttribute('width') && !img.hasAttribute('height')) {
-      // Hero image should be eager; others lazy
       if (!img.closest('.hero')) {
         img.loading = 'lazy';
       }
     }
   });
-  // Hero image: prioritise fetch
   const heroImg = document.querySelector('.hero-bg img');
   if (heroImg) {
     heroImg.fetchPriority = 'high';
@@ -105,13 +85,16 @@ function initHeader() {
   const header = document.getElementById('site-header');
   if (!header) return;
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
+  const updateHeader = (y) => {
+    if (y > 50) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
-  });
+  };
+  
+  _scrollCbs.push(updateHeader);
+  updateHeader(window.scrollY);
 }
 
 /* ── Mobile Menu ───────────────────────────────────── */
@@ -142,7 +125,6 @@ function initAnnouncementBar() {
   if (!bar || !close) return;
 
   close.addEventListener('click', () => {
-    // Force a known height first so transition works
     bar.style.maxHeight = bar.scrollHeight + 'px';
     requestAnimationFrame(() => {
       bar.style.transition = 'max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease';
@@ -155,12 +137,11 @@ function initAnnouncementBar() {
   });
 }
 
-/* ── Scroll Reveal (IntersectionObserver) ──────────── */
+/* ── Scroll Reveal ─────────────────────────────────── */
 function initScrollReveal() {
   const els = document.querySelectorAll('.reveal');
   if (!els.length) return;
 
-  // Pre-compute siblings per parent to avoid DOM reads inside callback
   const siblingMap = new WeakMap();
   els.forEach(el => {
     const parent = el.parentElement;
@@ -174,7 +155,6 @@ function initScrollReveal() {
       if (entry.isIntersecting) {
         const siblings = siblingMap.get(entry.target.parentElement) || [];
         const idx = siblings.indexOf(entry.target);
-        // Write in one batch — no read in between
         requestAnimationFrame(() => {
           entry.target.style.transitionDelay = (idx * 0.08) + 's';
           entry.target.classList.add('visible');
@@ -200,7 +180,6 @@ function initCounters() {
     const start    = performance.now();
     const tick = now => {
       const p = Math.min((now - start) / duration, 1);
-      // Only write — no DOM reads inside tick
       el.textContent = Math.round(easeOut(p) * target).toLocaleString();
       if (p < 1) requestAnimationFrame(tick);
     };
@@ -226,7 +205,6 @@ function initCarousel() {
   const nextBtn  = document.getElementById('carousel-next');
   if (!carousel) return;
 
-  // Cache tile width once; recalculate only on resize (not per click)
   let cachedTileWidth = 0;
   const getTileWidth = () => {
     if (cachedTileWidth) return cachedTileWidth;
@@ -245,7 +223,6 @@ function initCarousel() {
   if (nextBtn) nextBtn.addEventListener('click', () =>
     carousel.scrollBy({ left: getTileWidth(),  behavior: 'smooth' }));
 
-  // Throttle button-state updates via RAF to avoid layout thrash
   let btnRaf = false;
   const updateBtns = () => {
     if (btnRaf) return;
@@ -253,11 +230,9 @@ function initCarousel() {
     requestAnimationFrame(() => {
       btnRaf = false;
       if (!prevBtn || !nextBtn) return;
-      // Batch all DOM reads
       const sl  = carousel.scrollLeft;
       const cw  = carousel.clientWidth;
       const sw  = carousel.scrollWidth;
-      // Batch all DOM writes
       const atStart = sl < 10;
       const atEnd   = sl + cw >= sw - 10;
       prevBtn.style.opacity       = atStart ? '0.3' : '1';
@@ -269,4 +244,63 @@ function initCarousel() {
 
   carousel.addEventListener('scroll', updateBtns, { passive: true });
   updateBtns();
+}
+
+/* ── Testimonial Slider ─────────────────────────────── */
+function initTestimonialSlider() {
+  const track = document.getElementById('testimonials-track');
+  const slides = document.querySelectorAll('.testimonial-slide');
+  if (!track || slides.length === 0) return;
+
+  let currentIndex = 0;
+  const slideCount = slides.length;
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slideCount;
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  setInterval(nextSlide, 5000);
+}
+
+/* ── Simple Image Lightbox (No Zoom) ────────────────── */
+function initSimpleProductModal() {
+  const modal = document.getElementById('product-modal');
+  const modalImg = document.getElementById('modal-img');
+  const modalOverlay = document.getElementById('modal-overlay');
+  const modalClose = document.getElementById('modal-close');
+  const triggers = document.querySelectorAll('.product-trigger');
+
+  if (!modal || !modalImg) return;
+
+  const openModal = (imgSrc) => {
+    modalImg.src = imgSrc;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const imgSrc = trigger.dataset.image || trigger.querySelector('img').src;
+      openModal(imgSrc);
+    });
+  });
+
+  if (modalOverlay) modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
 }

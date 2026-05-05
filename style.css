@@ -5,32 +5,45 @@
 
 /* ---------- CSS Custom Properties ---------- */
 :root {
-  /* Brand Colors — Pure Ivory White Palette */
-  --ivory: #FDFDFB;      /* Brighter, neutral ivory white */
+  /* Brand Colors — Burgundy & White Palette */
+  --wine: #5A1F28;        /* Core Brand Burgundy */
+  --wine-light: #8B3D48;
+  --wine-dark: #3D151B;
+  --ivory: #FDFDFB;       /* Brighter, neutral ivory white */
   --white: #FFFFFF;
   --white-90: rgba(255, 255, 255, 0.9);
   
-  --sage-50: #F1F4F1;
-  --sage-100: #E3E9E3;
-  --sage-200: #C7D3C7;
-  --sage-300: #ABBDAB;
-  --sage-400: #9FB7A3;    /* Core Brand Sage */
-  --sage-500: #89A38E;
-  --sage-600: #738F79;
-  --sage-700: #5D7A64;
-  --sage-800: #47664F;
-  --journey-green: #E3E9E3;    /* Light Journey Green */
-  --sage-900: #1B3022;        /* Restore darker green for other uses */
+  --wine-50: #F9F2F3;
+  --wine-100: #F0DEE0;
+  --wine-200: #E1BDC2;
+  --wine-300: #C98B95;
+  --wine-400: #AC5D6A;
+  --wine-500: #8B3D48;
+  --wine-600: #7A2B36;
+  --wine-700: #5A1F28;    /* Primary Brand Accent */
+  --wine-800: #4A1921;
+  --wine-900: #3D151B;
   
-  --ink: #1A1D1A;
-  --ink-90: #2F332F;
-  --ink-70: #4A4F4A;
-  --ink-50: #757B75;
-  --ink-30: #A0A6A0;
-  --ink-10: rgba(26, 29, 26, 0.1);
+  /* Legacy mapping to keep code functional */
+  --sage-50: var(--wine-50);
+  --sage-100: var(--wine-100);
+  --sage-200: var(--wine-200);
+  --sage-300: var(--wine-300);
+  --sage-400: var(--wine-700);
+  --sage-500: var(--wine-600);
+  --sage-600: var(--wine-500);
+  --journey-green: var(--wine-700); /* Use deep wine for the primary green replacement */
+  --sage-900: var(--wine-900);
+  
+  --ink: #1A0D0F;         /* Darker ink with wine hint */
+  --ink-90: #2F1A1C;
+  --ink-70: #4A2E31;
+  --ink-50: #755558;
+  --ink-30: #A08386;
+  --ink-10: rgba(26, 13, 15, 0.1);
 
-  --shadow-sm: 0 4px 12px rgba(26, 29, 26, 0.05);
-  --shadow-md: 0 12px 24px rgba(26, 29, 26, 0.08);
+  --shadow-sm: 0 4px 12px rgba(90, 31, 40, 0.05);
+  --shadow-md: 0 12px 24px rgba(90, 31, 40, 0.08);
 
   /* Typography — Didot/Bodoni Style */
   --font-display: 'Playfair Display', serif;
@@ -385,7 +398,7 @@ button {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(26, 29, 26, 0.4), rgba(26, 29, 26, 0.2));
+  background: linear-gradient(135deg, rgba(40, 10, 15, 0.4), rgba(40, 10, 15, 0.2));
   z-index: 1;
 }
 
@@ -574,7 +587,7 @@ button {
 }
 
 .hero-btn-touch:hover:before {
-  background: var(--journey-green);
+  background: var(--wine-700);
   top: -40px;
   left: -40px;
 }
@@ -1081,6 +1094,7 @@ button {
   background-color: #ffffff; /* Ensure white background for transparent assets */
   padding: var(--space-md);
   border-radius: 8px;
+  transition: box-shadow 0.4s var(--ease-out-expo);
 }
 
 .product-card:hover .tile-image {

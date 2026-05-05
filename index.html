@@ -6,6 +6,7 @@
   <title>Choudhry Sons Exports — Exquisite Metal Handicrafts Since 1974</title>
   <meta name="description" content="Choudhry Sons Exports is a premier manufacturer of exquisite metal handicrafts, delivering unmatched artistry and quality since 1974." />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components.css" />
   <!-- Preload LCP hero image so it starts fetching immediately -->
   <link rel="preload" as="image" href="./assets/hero-bg.jpeg" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -211,41 +212,33 @@
 
   <!-- TESTIMONIALS -->
   <section class="testimonials-section" id="testimonials-section">
-    <div class="testimonial-3d-container reveal">
-      <div class="section-header">
-        <span class="section-eyebrow">Client Voices</span>
-        <h2 class="section-title">What Our Clients Say</h2>
+    <div class="section-header reveal">
+      <span class="section-eyebrow">Client Voices</span>
+      <h2 class="section-title">What Our Clients Say</h2>
+    </div>
+    <div class="testimonials-grid reveal">
+      <div class="testimonial-block">
+        <span class="testimonial-quote">&ldquo;</span>
+        <p class="testimonial-text">Exceptional craftsmanship. The brass vases we ordered for our hotel lobby have received overwhelming admiration from our guests. Truly a mark of distinction.</p>
+        <div class="testimonial-meta">
+          <span class="author-name">James Hartwell</span>
+          <span class="author-role">Director, The Meridian Hotels, London</span>
+        </div>
       </div>
-      <div class="testimonials-track" id="testimonials-track">
-        <div class="testimonial-slide">
-          <div class="testimonial-card">
-            <span class="quote-mark">&ldquo;</span>
-            <p class="testimonial-text">Exceptional craftsmanship. The brass vases we ordered for our hotel lobby have received overwhelming admiration from our guests. Truly a mark of distinction.</p>
-            <div class="testimonial-author">
-              <span class="author-name">James Hartwell</span>
-              <span class="author-role">Director, The Meridian Hotels, London</span>
-            </div>
-          </div>
+      <div class="testimonial-block">
+        <span class="testimonial-quote">&ldquo;</span>
+        <p class="testimonial-text">We have worked with many artisan suppliers globally, and none match the quality and consistency of Choudhry Sons Exports. Their attention to detail is unparalleled.</p>
+        <div class="testimonial-meta">
+          <span class="author-name">Camille Renard</span>
+          <span class="author-role">Head Buyer, Maison du Luxe, Paris</span>
         </div>
-        <div class="testimonial-slide">
-          <div class="testimonial-card">
-            <span class="quote-mark">&ldquo;</span>
-            <p class="testimonial-text">We have worked with many artisan suppliers globally, and none match the quality and consistency of Choudhry Sons Exports. Their attention to detail is unparalleled.</p>
-            <div class="testimonial-author">
-              <span class="author-name">Camille Renard</span>
-              <span class="author-role">Head Buyer, Maison du Luxe, Paris</span>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-slide">
-          <div class="testimonial-card">
-            <span class="quote-mark">&ldquo;</span>
-            <p class="testimonial-text">The custom copper trays for our restaurant were delivered flawlessly. The team's communication and craftsmanship are both world-class.</p>
-            <div class="testimonial-author">
-              <span class="author-name">Aisha Al-Farsi</span>
-              <span class="author-role">Interior Architect, Dubai</span>
-            </div>
-          </div>
+      </div>
+      <div class="testimonial-block">
+        <span class="testimonial-quote">&ldquo;</span>
+        <p class="testimonial-text">The custom copper trays for our restaurant were delivered flawlessly. The team's communication and craftsmanship are both world-class.</p>
+        <div class="testimonial-meta">
+          <span class="author-name">Aisha Al-Farsi</span>
+          <span class="author-role">Interior Architect, Dubai</span>
         </div>
       </div>
     </div>
@@ -253,81 +246,56 @@
 
   <!-- FOOTER -->
   <footer class="site-footer" id="contact-section">
-    <div class="footer-contact-area" style="padding: var(--space-4xl) var(--space-xl); background: var(--journey-green);">
-      <div class="section-header reveal" style="text-align: center; margin-bottom: var(--space-3xl);">
-        <span class="section-eyebrow" style="color: #000000; font-weight: 600;">Connect With Us</span>
-        <h2 class="section-title" style="color: #000000;">Get in Touch</h2>
-        <p class="section-subtitle" style="color: #000000; opacity: 0.8;">For wholesale inquiries, custom orders, or collaborations.</p>
+    <div class="footer-container">
+      <div class="footer-left-area reveal">
+        <div class="footer-brand-area">
+          <h3 class="footer-brand-name">Choudhry Sons Exports</h3>
+          <p class="footer-brand-tagline">Excellence in metal handicrafts since 1974.</p>
+        </div>
+        
+        <div class="footer-links-grid">
+          <div class="link-group">
+            <h4>Exports</h4>
+            <a href="#about-section">Our Story</a>
+            <a href="#best-sellers-section">Best Sellers</a>
+            <a href="#contact-section">Contact Us</a>
+          </div>
+          <div class="link-group">
+            <h4>Collection</h4>
+            <a href="decor.html">Decor</a>
+            <a href="furniture.html">Furniture</a>
+            <a href="bath.html">Bath</a>
+          </div>
+          <div class="link-group">
+            <h4>Contact</h4>
+            <a href="mailto:moobaid605@gmail.com" style="text-transform: none; opacity: 1;">moobaid605@gmail.com</a>
+            <a href="tel:+918954940821" style="opacity: 1;">+91 89549 40821</a>
+            <p style="font-family: var(--font-body); font-size: 0.95rem; opacity: 0.7; margin-top: 0.4rem; color: var(--ivory);">Moradabad, India</p>
+          </div>
+        </div>
       </div>
-      <div class="contact-layout" style="display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-4xl); max-width: var(--max-width); margin: 0 auto;">
-        <aside class="contact-sidebar reveal" style="background: var(--white); padding: var(--space-2xl); border-radius: 8px; border: 1px solid var(--sage-200); box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
-          <div class="sidebar-section">
-            <h4 class="sidebar-label" style="font-weight: 700; color: #000000; margin-bottom: 0.5rem; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.1em;">Head Office</h4>
-            <p class="sidebar-text" style="color: #000000; font-family: var(--font-body); font-size: 1.1rem;">Moradabad, Uttar Pradesh, India</p>
-          </div>
-          <div style="margin: 1.5rem 0; height: 1px; background: var(--sage-100);"></div>
-          <div class="sidebar-section">
-            <h4 class="sidebar-label" style="font-weight: 700; color: #000000; margin-bottom: 0.5rem; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.1em;">Email Us</h4>
-            <a href="mailto:moobaid605@gmail.com" style="color: #000000; text-decoration: none; font-family: var(--font-body); font-size: 1.1rem; font-weight: 500;">moobaid605@gmail.com</a>
-          </div>
-          <div style="margin: 1.5rem 0; height: 1px; background: var(--sage-100);"></div>
-          <div class="sidebar-section">
-            <h4 class="sidebar-label" style="font-weight: 700; color: #000000; margin-bottom: 0.5rem; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.1em;">Call Us</h4>
-            <a href="tel:+918954940821" style="color: #000000; text-decoration: none; font-family: var(--font-body); font-size: 1.1rem; font-weight: 500;">+91 89549 40821</a>
-          </div>
-        </aside>
-        <div class="contact-form-wrapper reveal">
-          <form action="#" method="POST" style="display: flex; flex-direction: column; gap: 1.5rem;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-              <input type="text" placeholder="Full Name" style="padding: 1rem; border: 1px solid var(--sage-200); border-radius: 4px; background: var(--white); font-family: var(--font-body); color: #000;" required />
-              <input type="email" placeholder="Email Address" style="padding: 1rem; border: 1px solid var(--sage-200); border-radius: 4px; background: var(--white); font-family: var(--font-body); color: #000;" required />
+
+      <div class="footer-right-area reveal">
+        <div class="footer-brand-area">
+          <h3 class="footer-brand-name">Get in Touch</h3>
+          <p class="footer-brand-tagline">For wholesale inquiries, custom orders, or collaborations.</p>
+        </div>
+        
+        <div class="footer-form-area">
+          <form action="#" method="POST" class="footer-contact-form">
+            <div class="form-row">
+              <input type="text" placeholder="Full Name" required />
+              <input type="email" placeholder="Email Address" required />
             </div>
-            <input type="text" placeholder="Subject" style="padding: 1rem; border: 1px solid var(--sage-200); border-radius: 4px; background: var(--white); font-family: var(--font-body); color: #000;" required />
-            <textarea placeholder="Your Message" rows="5" style="padding: 1rem; border: 1px solid var(--sage-200); border-radius: 4px; background: var(--white); font-family: var(--font-body); color: #000;" required></textarea>
-            <button type="submit" class="form-submit-btn">Send Message &nbsp;→</button>
+            <textarea placeholder="Your Message" rows="3" required></textarea>
+            <button type="submit" class="form-submit-btn-lg">Send Message &nbsp;→</button>
           </form>
         </div>
       </div>
     </div>
-
-    <div class="footer-inner" style="padding-top: var(--space-4xl);">
-      <div class="footer-brand">
-        <h3 class="footer-brand-name">Choudhry Sons Exports</h3>
-        <p class="footer-brand-desc">Excellence in metal handicrafts since 1974. Crafted in Moradabad, loved worldwide.</p>
-
-      </div>
-      <div class="footer-links">
-        <div class="link-group">
-          <h4>Explore</h4>
-          <a href="#about-section">Our Story</a>
-          <a href="#best-sellers-section">Best Sellers</a>
-          <a href="#contact-section">Contact</a>
-        </div>
-        <div class="link-group">
-          <h4>Collections</h4>
-          <a href="decor.html">Decor</a>
-          <a href="furniture.html">Furniture</a>
-          <a href="bath.html">Bath</a>
-        </div>
-        <div class="link-group">
-          <h4>Contact</h4>
-          <a href="mailto:moobaid605@gmail.com" class="footer-contact-link">
-            <div class="bell-btn">
-              <svg viewBox="0 0 448 512" class="bell-icon"><path d="M224 0c-17.7 0-32 14.3-32 32V49.9C119.5 61.4 64 124.2 64 200v33.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416H424c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V200c0-75.8-55.5-138.6-128-150.1V32c0-17.7-14.3-32-32-32zm0 96h8c57.4 0 104 46.6 104 104v33.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V200c0-57.4 46.6-104 104-104h8zm64 352H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z"></path></svg>
-            </div>
-            <span>moobaid605@gmail.com</span>
-          </a>
-          <a href="tel:+918954940821" class="footer-contact-link">
-            <div class="bell-btn">
-              <svg viewBox="0 0 448 512" class="bell-icon"><path d="M224 0c-17.7 0-32 14.3-32 32V49.9C119.5 61.4 64 124.2 64 200v33.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416H424c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V200c0-75.8-55.5-138.6-128-150.1V32c0-17.7-14.3-32-32-32zm0 96h8c57.4 0 104 46.6 104 104v33.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V200c0-57.4 46.6-104 104-104h8zm64 352H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z"></path></svg>
-            </div>
-            <span>+91 89549 40821</span>
-          </a>
-        </div>
-      </div>
-    </div>
+    
     <div class="footer-bottom">
-      <p>&copy; 2026 Choudhry Sons Exports All rights reserved. &nbsp;·&nbsp; Crafted with pride in India.</p>
+      <p>&copy; 2026 Choudhry Sons Exports. &nbsp;·&nbsp; Crafted with pride in India.</p>
     </div>
   </footer>
 
