@@ -59,9 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initCounters();
   initCarousel();
+  initBestSellersCarousel();
   initTestimonialSlider();
   initSimpleProductModal();
   initEnquiryCart();
+  initActiveNav();
 });
 
 /* ── Async image decoding ──────────────────────────── */
@@ -274,8 +276,27 @@ function initSimpleProductModal() {
 
   if (!modal || !modalImg) return;
 
-  const openModal = (imgSrc) => {
+  const openModal = (imgSrc, title, code) => {
     modalImg.src = imgSrc;
+    
+    // Dynamically insert caption card text
+    let caption = modal.querySelector('.modal-caption');
+    if (!caption) {
+      caption = document.createElement('div');
+      caption.className = 'modal-caption';
+      modalImg.parentNode.appendChild(caption);
+    }
+    
+    if (title || code) {
+      caption.style.display = 'block';
+      caption.innerHTML = `
+        <h3>${title || ''}</h3>
+        <span>${code || ''}</span>
+      `;
+    } else {
+      caption.style.display = 'none';
+    }
+    
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
   };
@@ -289,7 +310,9 @@ function initSimpleProductModal() {
     trigger.addEventListener('click', (e) => {
       e.preventDefault();
       const imgSrc = trigger.dataset.image || trigger.querySelector('img').src;
-      openModal(imgSrc);
+      const title = trigger.querySelector('.tile-title')?.textContent.trim() || '';
+      const code = trigger.querySelector('.item-number')?.textContent.trim() || '';
+      openModal(imgSrc, title, code);
     });
   });
 
@@ -319,16 +342,11 @@ function initEnquiryCart() {
   }
 
   // Construct message helpers
-  function constructMessage(userName, userMsg) {
+  function constructMessage() {
     let msg = `Hello Choudhry Sons Exports,\n\nI would like to enquire about the following handcrafted products:\n\n`;
     cart.forEach((item, index) => {
       msg += `- ${item.name} (${item.id})\n`;
     });
-    msg += `\nMy Details:\n`;
-    msg += `Name: ${userName}\n`;
-    if (userMsg.trim()) {
-      msg += `Message: ${userMsg.trim()}\n`;
-    }
     msg += `\nPlease share availability and export details. Thank you!`;
     return msg;
   }
@@ -362,9 +380,13 @@ function initEnquiryCart() {
           itemsList.querySelectorAll('.cart-page-item-remove').forEach(btn => {
             btn.addEventListener('click', () => {
               const itemId = btn.dataset.id;
-              cart = cart.filter(item => item.id !== itemId);
+              const item = cart.find(i => i.id === itemId);
+              cart = cart.filter(i => i.id !== itemId);
               localStorage.setItem('cs_enquiry_cart', JSON.stringify(cart));
               renderCartPage();
+              if (item) {
+                showToast(`Removed from Cart: ${item.name}`);
+              }
             });
           });
         }
@@ -377,15 +399,7 @@ function initEnquiryCart() {
 
     if (submitWhatsapp) {
       submitWhatsapp.addEventListener('click', () => {
-        const name = document.getElementById('cart-user-name').value.trim();
-        const msg = document.getElementById('cart-user-msg').value.trim();
-
-        if (!name) {
-          alert('Please fill out your Name to proceed.');
-          return;
-        }
-
-        const text = constructMessage(name, msg);
+        const text = constructMessage();
         const whatsappUrl = `https://wa.me/918954940821?text=${encodeURIComponent(text)}`;
         window.open(whatsappUrl, '_blank');
       });
@@ -393,15 +407,7 @@ function initEnquiryCart() {
 
     if (submitEmail) {
       submitEmail.addEventListener('click', () => {
-        const name = document.getElementById('cart-user-name').value.trim();
-        const msg = document.getElementById('cart-user-msg').value.trim();
-
-        if (!name) {
-          alert('Please fill out your Name to proceed.');
-          return;
-        }
-
-        const text = constructMessage(name, msg);
+        const text = constructMessage();
         const mailtoUrl = `mailto:moobaid605@gmail.com?subject=${encodeURIComponent('Product Enquiry — Choudhry Sons Exports')}&body=${encodeURIComponent(text)}`;
         window.location.href = mailtoUrl;
       });
@@ -411,16 +417,19 @@ function initEnquiryCart() {
 
   } else {
     // We are on a normal product/collection page
-    // Create & Inject Floating Cart Badge
+    // Create & Inject Floating Cart Container
     const badgeHtml = `
-      <div class="floating-cart-badge" id="floating-cart-badge">
-        <span class="floating-cart-icon">🛒</span>
-        <span class="floating-cart-text">Enquiry Cart</span>
-        <span class="floating-cart-count" id="floating-cart-count">0</span>
+      <div class="floating-cart-container" id="floating-cart-container">
+        <div class="floating-cart-badge" id="floating-cart-badge">
+          <span class="floating-cart-icon">🛒</span>
+          <span class="floating-cart-text">Enquiry Cart</span>
+          <span class="floating-cart-count" id="floating-cart-count">0</span>
+        </div>
       </div>
     `;
     document.body.insertAdjacentHTML('beforeend', badgeHtml);
 
+    const container = document.getElementById('floating-cart-container');
     const badge = document.getElementById('floating-cart-badge');
     const countSpan = document.getElementById('floating-cart-count');
     const productCards = document.querySelectorAll('.product-card');
@@ -430,13 +439,13 @@ function initEnquiryCart() {
       if (countSpan) countSpan.textContent = cart.length;
 
       if (cart.length > 0) {
-        badge.classList.add('active');
+        container.classList.add('active');
       } else {
-        badge.classList.remove('active');
+        container.classList.remove('active');
       }
     }
 
-    // Inject select overlays on normal pages
+    // Inject select buttons on normal pages
     productCards.forEach(card => {
       const codeEl = card.querySelector('.item-number');
       const titleEl = card.querySelector('.tile-title');
@@ -453,30 +462,43 @@ function initEnquiryCart() {
         card.classList.add('is-selected');
       }
 
-      const selectOverlayHtml = `
-        <div class="product-select-overlay">
-          <input type="checkbox" class="product-select-checkbox" data-id="${id}" data-name="${name}" data-img="${img}" ${isSelected ? 'checked' : ''} />
-          <span class="checkmark-indicator"></span>
-        </div>
+      const selectBtnHtml = `
+        <span class="product-add-btn" role="button" data-id="${id}">
+          ${isSelected ? 'Remove' : 'Add to Cart'}
+        </span>
       `;
-      card.insertAdjacentHTML('afterbegin', selectOverlayHtml);
+      card.insertAdjacentHTML('beforeend', selectBtnHtml);
 
-      // Stop modal click propagation on checkbox clicks
-      const overlay = card.querySelector('.product-select-overlay');
-      overlay.addEventListener('click', (e) => {
+      const addBtn = card.querySelector('.product-add-btn');
+      
+      // Stop modal click propagation on add button clicks
+      addBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-      });
+        e.preventDefault();
 
-      const checkbox = overlay.querySelector('.product-select-checkbox');
-      checkbox.addEventListener('change', () => {
-        if (checkbox.checked) {
-          if (!cart.some(item => item.id === id)) {
-            cart.push({ id, name, img });
-          }
-          card.classList.add('is-selected');
+        const currentlySelected = cart.some(item => item.id === id);
+        if (!currentlySelected) {
+          cart.push({ id, name, img });
+          // Sync all duplicate cards using the data-id attribute on buttons
+          document.querySelectorAll(`.product-add-btn[data-id="${id}"]`).forEach(btn => {
+            btn.textContent = 'Remove';
+            const parentCard = btn.closest('.product-card');
+            if (parentCard) {
+              parentCard.classList.add('is-selected');
+            }
+          });
+          showToast(`Added to Cart: ${name}`);
         } else {
           cart = cart.filter(item => item.id !== id);
-          card.classList.remove('is-selected');
+          // Sync all duplicate cards using the data-id attribute on buttons
+          document.querySelectorAll(`.product-add-btn[data-id="${id}"]`).forEach(btn => {
+            btn.textContent = 'Add to Cart';
+            const parentCard = btn.closest('.product-card');
+            if (parentCard) {
+              parentCard.classList.remove('is-selected');
+            }
+          });
+          showToast(`Removed from Cart: ${name}`);
         }
         updateCartBadge();
       });
@@ -489,4 +511,146 @@ function initEnquiryCart() {
 
     updateCartBadge();
   }
+}
+
+/* ── Dynamic Navigation Highlighting ──────────────── */
+function initActiveNav() {
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll('.main-nav .nav-link');
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && currentPath.endsWith(href)) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+
+/* ── Toast Notification System ─────────────────────── */
+function showToast(message) {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'toast-notification';
+  toast.textContent = message;
+
+  container.appendChild(toast);
+
+  // Animate slide-in
+  requestAnimationFrame(() => {
+    toast.classList.add('visible');
+  });
+
+  // Fade out and garbage collect
+  setTimeout(() => {
+    toast.classList.remove('visible');
+    toast.addEventListener('transitionend', () => {
+      toast.remove();
+      if (container.childNodes.length === 0) {
+        container.remove();
+      }
+    });
+  }, 2800);
+}
+
+/* ── Best Sellers Marquee Carousel ────────────────── */
+function initBestSellersCarousel() {
+  const carousel = document.getElementById('best-sellers-carousel');
+  if (!carousel) return;
+
+  // Clone items to create the infinite loop effect
+  const originalItems = Array.from(carousel.children);
+  if (originalItems.length === 0) return;
+
+  originalItems.forEach(item => {
+    const clone = item.cloneNode(true);
+    carousel.appendChild(clone);
+  });
+
+  let isHovered = false;
+  let scrollSpeed = 0.8; // Smooth, luxury pacing
+  let animationId = null;
+
+  // Hover detection
+  carousel.addEventListener('mouseenter', () => {
+    isHovered = true;
+  });
+  carousel.addEventListener('mouseleave', () => {
+    isHovered = false;
+  });
+
+  // Touch device support (touch ends pause, swipe resets speed)
+  carousel.addEventListener('touchstart', () => {
+    isHovered = true;
+  }, { passive: true });
+  carousel.addEventListener('touchend', () => {
+    isHovered = false;
+  }, { passive: true });
+
+  // Function to calculate width of original items sequence + gap
+  const getOriginalWidth = () => {
+    const gap = parseFloat(getComputedStyle(carousel).gap) || 32;
+    let width = 0;
+    originalItems.forEach(item => {
+      width += item.getBoundingClientRect().width + gap;
+    });
+    return width;
+  };
+
+  let originalWidth = getOriginalWidth();
+
+  // Recalculate on load and resize to ensure fluid responsive layout
+  window.addEventListener('load', () => {
+    originalWidth = getOriginalWidth();
+  });
+
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      originalWidth = getOriginalWidth();
+    }, 150);
+  });
+
+  let isVisible = true;
+  let running = false;
+
+  function animateScroll() {
+    // Only keep the rAF alive while the marquee is on-screen and not paused —
+    // lets the page go fully idle otherwise (no perpetual loop).
+    if (isHovered || !isVisible) { running = false; return; }
+    carousel.scrollLeft += scrollSpeed;
+    if (carousel.scrollLeft >= originalWidth) {
+      carousel.scrollLeft = carousel.scrollLeft % originalWidth;
+    }
+    animationId = requestAnimationFrame(animateScroll);
+  }
+
+  function startMarquee() {
+    if (!running && !isHovered && isVisible) {
+      running = true;
+      animationId = requestAnimationFrame(animateScroll);
+    }
+  }
+
+  // Resume when the mouse/touch leaves
+  carousel.addEventListener('mouseleave', startMarquee);
+  carousel.addEventListener('touchend', startMarquee, { passive: true });
+
+  // Pause entirely when scrolled out of view
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      isVisible = entries[0].isIntersecting;
+      if (isVisible) startMarquee();
+    }, { threshold: 0 }).observe(carousel);
+  }
+
+  // Start marquee loop
+  startMarquee();
 }

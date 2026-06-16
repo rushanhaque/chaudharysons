@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Choudhry Sons Exports — Exquisite Metal Handicrafts Since 1974</title>
-  <meta name="description" content="Choudhry Sons Exports is a premier manufacturer of exquisite metal handicrafts, delivering unmatched artistry and quality since 1974." />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="components.css" />
+  <meta name="description" content="Choudhry Sons Exports — a maison of handcrafted brass, copper & silver artistry from Moradabad, India. Heirloom metal handicrafts exported worldwide since 1974." />
+  <link rel="stylesheet" href="style.css?v=1" />
+  <link rel="stylesheet" href="components.css?v=1" />
+  <link rel="stylesheet" href="premium.css?v=7" />
   <!-- Preload LCP hero image so it starts fetching immediately -->
   <link rel="preload" as="image" href="./assets/hero-bg.png" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,30 +15,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet" />
   <meta name="theme-color" content="#441b26" />
 </head>
-<body>
+<body data-page="home">
 
-
-  <!-- HEADER -->
-  <header class="site-header header-transparent" id="site-header">
-    <div class="header-top">
-      <a href="index.html" class="brand" id="brand-logo">
-        <h1 class="brand-name">Choudhry Sons Exports</h1>
-      </a>
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="header-bottom">
-      <nav class="main-nav" id="main-nav">
-        <a href="decor.html" class="nav-link">Decor</a>
-        <a href="furniture.html" class="nav-link">Furniture</a>
-        <a href="mirror-and-art.html" class="nav-link">Mirrors & Art</a>
-        <a href="bath.html" class="nav-link">Bath</a>
-        <a href="atelier.html" class="nav-link">Atelier</a>
-        <a href="lighting.html" class="nav-link">Lighting</a>
-      </nav>
-    </div>
-  </header>
+  <!-- HEADER (injected by premium.js) -->
+  <div id="cs-header"></div>
 
   <!-- HERO -->
   <section class="hero" id="hero-section">
@@ -57,170 +38,357 @@
         <span class="title-line">Crafting Excellence in</span>
         <span class="title-line accent">Metal Handicrafts</span>
       </h1>
-    </div>
-
-    <div class="hero-actions">
-      <a class="hero-btn-browse" href="#collections-section">Browse Categories</a>
-      <a href="#contact-section" class="hero-btn-touch">Get In Touch</a>
-    </div>
-  </section>
-
-  <!-- COLLECTIONS -->
-  <section class="collections" id="collections-section">
-    <div class="section-header reveal">
-      <span class="section-eyebrow">Curated Collections</span>
-      <h2 class="section-title">Our Collections</h2>
-      <p class="section-subtitle">Discover our curated range of exquisite metal handicrafts, each born from generations of artisan knowledge.</p>
-    </div>
-    <div class="collections-carousel-wrapper">
-      <div class="collections-carousel" id="collections-carousel">
-        <!-- Tile 1: Decor -->
-        <a href="decor.html" class="collection-tile card reveal" style="display: block;">
-          <img src="./assets/home%20decor.webp" alt="Decor" class="tile-bg-img" loading="lazy" />
-          <div class="border"></div>
-          <div class="content">
-            <h3 class="tile-name">Decor</h3>
-            <p class="tile-tagline">Elevate your living spaces</p>
-          </div>
+      <p class="hero-lead">
+        Heirloom brass, copper &amp; silver pieces — hand-hammered by master artisans
+        and exported to the world's finest homes, hotels &amp; galleries.
+      </p>
+      <div class="hero-actions">
+        <a class="cs-btn cs-btn--gold cs-magnetic" href="#collections-section">
+          Explore Collections
+          <svg class="cs-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-
-        <!-- Tile 2: Furniture -->
-        <a href="furniture.html" class="collection-tile card reveal" style="display: block;">
-          <img src="./assets/furniture.webp" alt="Furniture" class="tile-bg-img" loading="lazy" />
-          <div class="border"></div>
-          <div class="content">
-            <h3 class="tile-name">Furniture</h3>
-            <p class="tile-tagline">Crafted for comfort & style</p>
-          </div>
-        </a>
-
-        <!-- Tile 3: Mirrors & Art -->
-        <a href="mirror-and-art.html" class="collection-tile card reveal" style="display: block;">
-          <img src="./assets/mirror%20and%20art.webp" alt="Mirrors & Art" class="tile-bg-img" loading="lazy" />
-          <div class="border"></div>
-          <div class="content">
-            <h3 class="tile-name">Mirrors & Art</h3>
-            <p class="tile-tagline">Reflect your unique style</p>
-          </div>
-        </a>
-
-        <!-- Tile 4: Bath -->
-        <a href="bath.html" class="collection-tile card reveal" style="display: block;">
-          <img src="./assets/bathroom.webp" alt="Bath" class="tile-bg-img" loading="lazy" />
-          <div class="border"></div>
-          <div class="content">
-            <h3 class="tile-name">Bath</h3>
-            <p class="tile-tagline">Luxurious sanctuary essentials</p>
-          </div>
-        </a>
-
-        <!-- Tile 5: Atelier -->
-        <a href="atelier.html" class="collection-tile card reveal" style="display: block;">
-          <img src="./assets/atelier.webp" alt="Atelier" class="tile-bg-img" loading="lazy" />
-          <div class="border"></div>
-          <div class="content">
-            <h3 class="tile-name">Atelier</h3>
-            <p class="tile-tagline">Bespoke artisan creations</p>
-          </div>
-        </a>
-
-        <!-- Tile 6: Lighting -->
-        <a href="lighting.html" class="collection-tile card reveal" style="display: block;">
-          <img src="./assets/lighting.webp" alt="Lighting" class="tile-bg-img" loading="lazy" />
-          <div class="border"></div>
-          <div class="content">
-            <h3 class="tile-name">Lighting</h3>
-            <p class="tile-tagline">Brilliant artistic designs</p>
-          </div>
-        </a>
+        <a class="cs-btn cs-btn--ghost-light cs-magnetic" href="contact.html">Get In Touch</a>
       </div>
     </div>
   </section>
 
-  <!-- BEST SELLERS SECTION -->
-  <section class="gallery-section" id="best-sellers-section" style="padding: var(--space-4xl) 0;">
-    <div class="section-header reveal">
-      <span class="section-eyebrow">Curated Excellence</span>
-      <h2 class="section-title">Our Best Sellers</h2>
-      <p class="section-subtitle">A collection of our most sought-after handcrafted pieces, loved by clients worldwide.</p>
+  <!-- MARQUEE TICKER -->
+  <div class="cs-marquee" aria-hidden="true">
+    <div class="cs-marquee-track">
+      <div class="cs-marquee-group">
+        <span class="cs-marquee-item">Brass <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item">Copper <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item"><em>Hand-Hammered</em> <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item">Silver <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item">Repoussé <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item"><em>Since 1974</em> <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item">Bespoke <span class="cs-star">✦</span></span>
+      </div>
+      <div class="cs-marquee-group">
+        <span class="cs-marquee-item">Brass <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item">Copper <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item"><em>Hand-Hammered</em> <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item">Silver <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item">Repoussé <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item"><em>Since 1974</em> <span class="cs-star">✦</span></span>
+        <span class="cs-marquee-item">Bespoke <span class="cs-star">✦</span></span>
+      </div>
     </div>
-    <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-md); padding: 0 var(--space-xl); max-width: var(--max-width); margin: 0 auto;">
-      <div class="gallery-item placeholder-img reveal" style="aspect-ratio: 4/5; border-radius: 2px;"></div>
-      <div class="gallery-item placeholder-img reveal" style="aspect-ratio: 4/5; border-radius: 2px;"></div>
-      <div class="gallery-item placeholder-img reveal" style="aspect-ratio: 4/5; border-radius: 2px;"></div>
-      <div class="gallery-item placeholder-img reveal" style="aspect-ratio: 4/5; border-radius: 2px;"></div>
-      <div class="gallery-item placeholder-img reveal" style="aspect-ratio: 4/5; border-radius: 2px;"></div>
-      <div class="gallery-item placeholder-img reveal" style="aspect-ratio: 4/5; border-radius: 2px;"></div>
-      <div class="gallery-item placeholder-img reveal" style="aspect-ratio: 4/5; border-radius: 2px;"></div>
-      <div class="gallery-item placeholder-img reveal" style="aspect-ratio: 4/5; border-radius: 2px;"></div>
-      <div class="gallery-item placeholder-img reveal" style="aspect-ratio: 4/5; border-radius: 2px;"></div>
-      <div class="gallery-item placeholder-img reveal" style="aspect-ratio: 4/5; border-radius: 2px;"></div>
+  </div>
+
+  <!-- COLLECTIONS — redesigned tiles -->
+  <section class="collections" id="collections-section">
+    <div class="cs-section-head reveal">
+      <span class="cs-eyebrow cs-center">Curated Collections</span>
+      <h2 class="cs-title">Six Worlds of <span class="cs-gold-text">Metal Artistry</span></h2>
+      <p class="cs-sub">Each collection is born from generations of artisan knowledge — a distinct language of form, finish and function.</p>
+      <div class="cs-divider-mark"></div>
+    </div>
+
+    <div class="cs-accordion reveal">
+      <a href="decor.html" class="cs-acc-panel">
+        <img class="cs-acc-img" src="./assets/home%20decor.webp" alt="Decor collection" loading="lazy" />
+        <span class="cs-acc-shade"></span>
+        <span class="cs-acc-num">01</span>
+        <span class="cs-acc-label">Decor</span>
+        <div class="cs-acc-info">
+          <h3 class="cs-acc-name">Decor</h3>
+          <div class="cs-acc-rule"></div>
+          <p class="cs-acc-tag">Sculptural objects that elevate every living space.</p>
+          <span class="cs-acc-cta">Explore the Collection
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="furniture.html" class="cs-acc-panel">
+        <img class="cs-acc-img" src="./assets/furniture.webp" alt="Furniture collection" loading="lazy" />
+        <span class="cs-acc-shade"></span>
+        <span class="cs-acc-num">02</span>
+        <span class="cs-acc-label">Furniture</span>
+        <div class="cs-acc-info">
+          <h3 class="cs-acc-name">Furniture</h3>
+          <div class="cs-acc-rule"></div>
+          <p class="cs-acc-tag">Statement metal furniture crafted for comfort &amp; style.</p>
+          <span class="cs-acc-cta">Explore the Collection
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="mirror-and-art.html" class="cs-acc-panel">
+        <img class="cs-acc-img" src="./assets/mirror%20and%20art.webp" alt="Mirrors & Art collection" loading="lazy" />
+        <span class="cs-acc-shade"></span>
+        <span class="cs-acc-num">03</span>
+        <span class="cs-acc-label">Mirrors &amp; Art</span>
+        <div class="cs-acc-info">
+          <h3 class="cs-acc-name">Mirrors &amp; Art</h3>
+          <div class="cs-acc-rule"></div>
+          <p class="cs-acc-tag">Reflective heirlooms and wall art that command a room.</p>
+          <span class="cs-acc-cta">Explore the Collection
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="bath.html" class="cs-acc-panel">
+        <img class="cs-acc-img" src="./assets/bathroom.webp" alt="Bath collection" loading="lazy" />
+        <span class="cs-acc-shade"></span>
+        <span class="cs-acc-num">04</span>
+        <span class="cs-acc-label">Bath</span>
+        <div class="cs-acc-info">
+          <h3 class="cs-acc-name">Bath</h3>
+          <div class="cs-acc-rule"></div>
+          <p class="cs-acc-tag">Luxurious fittings &amp; sanctuary essentials in noble metal.</p>
+          <span class="cs-acc-cta">Explore the Collection
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="atelier.html" class="cs-acc-panel">
+        <img class="cs-acc-img" src="./assets/atelier.webp" alt="Atelier collection" loading="lazy" />
+        <span class="cs-acc-shade"></span>
+        <span class="cs-acc-num">05</span>
+        <span class="cs-acc-label">Atelier</span>
+        <div class="cs-acc-info">
+          <h3 class="cs-acc-name">Atelier</h3>
+          <div class="cs-acc-rule"></div>
+          <p class="cs-acc-tag">Bespoke, one-of-a-kind commissions from our master bench.</p>
+          <span class="cs-acc-cta">Explore the Collection
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="lighting.html" class="cs-acc-panel">
+        <img class="cs-acc-img" src="./assets/lighting.webp" alt="Lighting collection" loading="lazy" />
+        <span class="cs-acc-shade"></span>
+        <span class="cs-acc-num">06</span>
+        <span class="cs-acc-label">Lighting</span>
+        <div class="cs-acc-info">
+          <h3 class="cs-acc-name">Lighting</h3>
+          <div class="cs-acc-rule"></div>
+          <p class="cs-acc-tag">Lanterns &amp; fixtures that cast warmth and intricate shadow.</p>
+          <span class="cs-acc-cta">Explore the Collection
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </a>
     </div>
   </section>
 
-  <!-- ABOUT SECTION -->
+  <!-- STATS BAND -->
+  <section class="cs-stats reveal">
+    <div class="cs-stats-grid">
+      <div class="cs-stat">
+        <div class="cs-stat-num"><span class="stat-number" data-target="50">0</span><span class="cs-stat-suffix">+</span></div>
+        <div class="cs-stat-label">Years of Heritage</div>
+      </div>
+      <div class="cs-stat">
+        <div class="cs-stat-num"><span class="stat-number" data-target="30">0</span><span class="cs-stat-suffix">+</span></div>
+        <div class="cs-stat-label">Countries Served</div>
+      </div>
+      <div class="cs-stat">
+        <div class="cs-stat-num"><span class="stat-number" data-target="200">0</span><span class="cs-stat-suffix">+</span></div>
+        <div class="cs-stat-label">Master Artisans</div>
+      </div>
+      <div class="cs-stat">
+        <div class="cs-stat-num"><span class="stat-number" data-target="50000">0</span><span class="cs-stat-suffix">+</span></div>
+        <div class="cs-stat-label">Pieces Crafted</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST SELLERS -->
+  <section class="gallery-section" id="best-sellers-section" style="padding: var(--space-4xl) 0;">
+    <div class="cs-section-head reveal">
+      <span class="cs-eyebrow cs-center">Curated Excellence</span>
+      <h2 class="cs-title">Our <span class="cs-gold-text">Best Sellers</span></h2>
+      <p class="cs-sub">A selection of our most sought-after handcrafted pieces, loved by clients worldwide.</p>
+      <div class="cs-divider-mark"></div>
+    </div>
+    <div class="products-carousel reveal" id="best-sellers-carousel">
+      <a href="#" class="product-card product-trigger">
+        <img src="assets/furniture/Picture1.png" alt="Imperial Metal Coffee Table" class="tile-image" />
+        <span class="item-number">CS-FUR-001</span>
+        <h3 class="tile-title">Imperial Metal Coffee Table</h3>
+      </a>
+      <a href="#" class="product-card product-trigger">
+        <img src="assets/Decor/Picture2.jpg" alt="Latticed Bronze Tray" class="tile-image" />
+        <span class="item-number">CS-DEC-002</span>
+        <h3 class="tile-title">Latticed Bronze Tray</h3>
+      </a>
+      <a href="#" class="product-card product-trigger">
+        <img src="assets/furniture/Picture30.png" alt="Filigree Dressing Table Mirror" class="tile-image" />
+        <span class="item-number">CS-FUR-007</span>
+        <h3 class="tile-title">Filigree Dressing Mirror</h3>
+      </a>
+      <a href="#" class="product-card product-trigger">
+        <img src="assets/furniture/Picture24.jpg" alt="Art Deco Nesting Stools" class="tile-image" />
+        <span class="item-number">CS-FUR-002</span>
+        <h3 class="tile-title">Art Deco Nesting Stools</h3>
+      </a>
+      <a href="#" class="product-card product-trigger">
+        <img src="assets/furniture/Picture25.png" alt="Latticed Bronze Side Table" class="tile-image" />
+        <span class="item-number">CS-FUR-003</span>
+        <h3 class="tile-title">Latticed Side Table</h3>
+      </a>
+      <a href="#" class="product-card product-trigger">
+        <img src="assets/Decor/Picture3.jpg" alt="Ethereal Silver Candleholder" class="tile-image" />
+        <span class="item-number">CS-DEC-003</span>
+        <h3 class="tile-title">Ethereal Candleholder</h3>
+      </a>
+    </div>
+    <div style="text-align:center; margin-top: var(--space-lg);">
+      <a class="cs-btn cs-magnetic" href="collections.html">View All Collections
+        <svg class="cs-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
   <section class="about" id="about-section">
     <div class="about-inner">
-      <div class="about-content reveal">
-        <span class="section-eyebrow">Our Story</span>
-        <h2 class="section-title">The Journey Since 1974</h2>
+      <div class="about-content reveal cs-fade-left">
+        <span class="cs-eyebrow">Our Story</span>
+        <h2 class="section-title" style="color:#fff;">The Journey Since 1974</h2>
         <p class="about-text">
-          Choudhry Sons Exports was founded on a singular vision: to bring the rich tradition of Indian metalworking to the global stage. From our humble beginnings in a small artisan workshop, we have grown into an internationally respected name, renowned for our commitment to quality, authenticity, and design.
+          Choudhry Sons Exports was founded on a singular vision: to bring the rich tradition of
+          Indian metalworking to the global stage. From a small artisan workshop in Moradabad, we have
+          grown into an internationally respected name — renowned for quality, authenticity and design.
         </p>
         <p class="about-text">
-          For generations, our family has worked alongside master craftsmen, passing down techniques that are simply impossible to replicate with machinery. Every curve we hammer, every pattern we engrave, and every finish we polish is a continuation of a story that is centuries old.
+          For generations our family has worked alongside master craftsmen, passing down techniques
+          impossible to replicate by machine. Every curve we hammer and every pattern we engrave is a
+          continuation of a story that is centuries old.
         </p>
-        <p class="about-text">
-          Today, our products grace homes, hotels, and galleries across more than 30 countries. Yet, our core philosophy remains unchanged: to create art that functions, and objects that endure.
-        </p>
+        <div class="about-mini-stats">
+          <div class="mini"><b>30+</b><span>Countries Served</span></div>
+          <div class="mini"><b>200+</b><span>Master Artisans</span></div>
+          <div class="mini"><b>100%</b><span>Handcrafted</span></div>
+        </div>
+        <p class="about-signature">Choudhry Sons<span>The Founding Family</span></p>
+        <div style="margin-top:1.8rem;">
+          <a class="cs-btn cs-btn--gold cs-magnetic" href="about.html">Read Our Full Story
+            <svg class="cs-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
       </div>
-      <div class="about-image reveal">
-        <img src="./assets/Journey page/2.png" alt="Our Journey since 1974" class="about-tile-img" loading="lazy" />
+      <div class="about-image reveal cs-fade-right">
+        <img src="./assets/Journey page/2.png" alt="Our journey since 1974" class="about-tile-img" loading="lazy" />
       </div>
     </div>
   </section>
 
+  <!-- MATERIALS -->
+  <section class="cs-materials">
+    <div class="cs-section-head reveal">
+      <span class="cs-eyebrow cs-center">The Material Palette</span>
+      <h2 class="cs-title">Noble Metals, <span class="cs-gold-text">Masterfully Worked</span></h2>
+      <p class="cs-sub">We source only the finest grade metals, then transform them through techniques honed over five decades.</p>
+      <div class="cs-divider-mark"></div>
+    </div>
+    <div class="cs-materials-grid">
+      <div class="cs-material reveal">
+        <div class="cs-material__icon">⬡</div>
+        <h3>Brass</h3>
+        <p>Our signature medium — warm, golden and endlessly workable. Hand-hammered, engraved and lacquered to a museum-grade finish that ages with grace.</p>
+        <div class="cs-material__tag">Hand-Hammered · Engraved</div>
+      </div>
+      <div class="cs-material reveal">
+        <div class="cs-material__icon">◈</div>
+        <h3>Copper</h3>
+        <p>Rich, living metal prized for its depth of patina. We chase and repoussé each surface by hand, coaxing out tone and texture impossible to mass-produce.</p>
+        <div class="cs-material__tag">Repoussé · Patinated</div>
+      </div>
+      <div class="cs-material reveal">
+        <div class="cs-material__icon">✦</div>
+        <h3>Silver &amp; White Metal</h3>
+        <p>For pieces of pure occasion. Polished to a mirror brilliance or softly brushed, our white-metal work brings quiet, enduring luxury to any setting.</p>
+        <div class="cs-material__tag">Mirror-Polished · Plated</div>
+      </div>
+    </div>
+  </section>
 
-
-  <!-- THE CRAFT: PROCESS SECTION -->
+  <!-- PROCESS -->
   <section class="process-section" id="process-section">
-    <div class="section-header reveal">
-      <span class="section-eyebrow">Our Process</span>
-      <h2 class="section-title">The Art of Making</h2>
-      <p class="section-subtitle">Every piece is a testament to centuries of refined tradition and meticulous craft.</p>
+    <div class="cs-section-head reveal">
+      <span class="cs-eyebrow cs-center">Our Process</span>
+      <h2 class="cs-title">The Art of <span class="cs-gold-text">Making</span></h2>
+      <p class="cs-sub">Every piece is a testament to centuries of refined tradition and meticulous craft.</p>
+      <div class="cs-divider-mark"></div>
     </div>
     <div class="process-steps">
       <div class="process-step reveal">
         <span class="step-number">01</span>
         <div class="step-icon">⬡</div>
         <h3 class="step-title">Material Selection</h3>
-        <p class="step-desc">We source only the finest grade metals — brass, copper, and silver — from trusted suppliers, ensuring the foundation of every piece is exceptional.</p>
+        <p class="step-desc">We source only the finest grade metals — brass, copper and silver — from trusted suppliers, ensuring the foundation of every piece is exceptional.</p>
       </div>
       <div class="process-connector"></div>
       <div class="process-step reveal">
         <span class="step-number">02</span>
         <div class="step-icon">◈</div>
         <h3 class="step-title">Artisan Crafting</h3>
-        <p class="step-desc">Our seasoned artisans employ time-honored hand-hammering, chasing, and repousse techniques — skills passed down through generations in Moradabad.</p>
+        <p class="step-desc">Our seasoned artisans employ time-honoured hand-hammering, chasing and repoussé techniques — skills passed down through generations in Moradabad.</p>
       </div>
       <div class="process-connector"></div>
       <div class="process-step reveal">
         <span class="step-number">03</span>
         <div class="step-icon">✦</div>
         <h3 class="step-title">Quality &amp; Finishing</h3>
-        <p class="step-desc">Each piece undergoes rigorous quality inspection before receiving its final finish — polished, lacquered, or patinated to absolute perfection.</p>
+        <p class="step-desc">Each piece undergoes rigorous inspection before its final finish — polished, lacquered or patinated to absolute perfection.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- SIGNATURE SPOTLIGHT -->
+  <section class="cs-spotlight">
+    <div class="cs-spotlight-inner">
+      <div class="cs-spotlight__media reveal cs-fade-left" data-parallax="0.06">
+        <span class="cs-spotlight__badge">Signature Piece</span>
+        <img src="assets/furniture/Picture1.png" alt="The Imperial metal coffee table" loading="lazy" />
+      </div>
+      <div class="cs-spotlight__text reveal cs-fade-right">
+        <span class="cs-eyebrow">Maison Signature</span>
+        <h2>The <em>Imperial</em> Coffee Table</h2>
+        <p>Our most celebrated creation — a sculptural centrepiece in hand-hammered brass, finished by a single artisan over many days. A study in proportion, patience and quiet opulence.</p>
+        <ul class="cs-spotlight__features">
+          <li>Solid hand-hammered brass construction</li>
+          <li>Hand-engraved latticework detailing</li>
+          <li>Museum-grade lacquered finish</li>
+          <li>Available as a bespoke commission</li>
+        </ul>
+        <a class="cs-btn cs-btn--gold cs-magnetic" href="furniture.html">Discover the Collection
+          <svg class="cs-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="cs-trust reveal">
+    <p class="cs-trust-label">Trusted by discerning houses &amp; hospitality groups worldwide</p>
+    <div class="cs-trust-grid">
+      <div class="cs-house">Meridian<span>London</span></div>
+      <div class="cs-house">Maison du Luxe<span>Paris</span></div>
+      <div class="cs-house">Al-Farsi Studio<span>Dubai</span></div>
+      <div class="cs-house">Heritage Group<span>New York</span></div>
+      <div class="cs-house">The Atelier<span>Milan</span></div>
     </div>
   </section>
 
   <!-- TESTIMONIALS -->
   <section class="testimonials-section" id="testimonials-section">
-    <div class="section-header reveal">
-      <span class="section-eyebrow">Client Voices</span>
-      <h2 class="section-title">What Our Clients Say</h2>
+    <div class="cs-section-head reveal">
+      <span class="cs-eyebrow cs-center">Client Voices</span>
+      <h2 class="cs-title">What Our <span class="cs-gold-text">Clients Say</span></h2>
+      <div class="cs-divider-mark"></div>
     </div>
     <div class="testimonials-grid reveal">
       <div class="testimonial-block">
+        <div class="cs-stars">★ ★ ★ ★ ★</div>
         <span class="testimonial-quote">&ldquo;</span>
         <p class="testimonial-text">Exceptional craftsmanship. The brass vases we ordered for our hotel lobby have received overwhelming admiration from our guests. Truly a mark of distinction.</p>
         <div class="testimonial-meta">
@@ -229,6 +397,7 @@
         </div>
       </div>
       <div class="testimonial-block">
+        <div class="cs-stars">★ ★ ★ ★ ★</div>
         <span class="testimonial-quote">&ldquo;</span>
         <p class="testimonial-text">We have worked with many artisan suppliers globally, and none match the quality and consistency of Choudhry Sons Exports. Their attention to detail is unparalleled.</p>
         <div class="testimonial-meta">
@@ -237,6 +406,7 @@
         </div>
       </div>
       <div class="testimonial-block">
+        <div class="cs-stars">★ ★ ★ ★ ★</div>
         <span class="testimonial-quote">&ldquo;</span>
         <p class="testimonial-text">The custom copper trays for our restaurant were delivered flawlessly. The team's communication and craftsmanship are both world-class.</p>
         <div class="testimonial-meta">
@@ -246,74 +416,38 @@
       </div>
     </div>
   </section>
-  
-  <!-- COLLECTIONS DIRECTORY -->
-  <section class="collections-directory reveal">
-    <div class="directory-container">
-      <div class="directory-list">
-        <a href="furniture.html" class="directory-item">Bed</a>
-        <a href="bath.html" class="directory-item">Bath</a>
-        <a href="furniture.html" class="directory-item">Table</a>
-        <a href="decor.html" class="directory-item">Home Décor</a>
-        <a href="atelier.html" class="directory-item">Atelier</a>
-      </div>
+
+  <!-- NEWSLETTER -->
+  <section class="cs-newsletter">
+    <div class="cs-newsletter-inner reveal">
+      <span class="cs-eyebrow cs-center">The Atelier Letter</span>
+      <h2>Receive Our <em>Private Catalogue</em></h2>
+      <p>New collections, trade previews and stories from our artisans — delivered to a select few.</p>
+      <form class="cs-newsletter-form">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit">Subscribe</button>
+      </form>
+      <small>No more than once a month. Unsubscribe anytime.</small>
     </div>
   </section>
 
+  <!-- FOOTER (injected by premium.js) -->
+  <div id="cs-footer"></div>
 
-  <!-- FOOTER -->
-  <footer class="site-footer" id="contact-section">
-    <div class="footer-container">
-      <div class="footer-left-area reveal">
-        <div class="footer-brand-area">
-          <h3 class="footer-brand-name">Choudhry Sons Exports</h3>
-          <p class="footer-brand-tagline">Excellence in metal handicrafts since 1974.</p>
-        </div>
-        
-        <div class="footer-links-grid">
-          <div class="link-group">
-            <h4>Exports</h4>
-            <a href="#about-section">Our Story</a>
-            <a href="#best-sellers-section">Best Sellers</a>
-            <a href="#contact-section">Contact Us</a>
-          </div>
-          <div class="link-group">
-            <h4>Collection</h4>
-            <a href="decor.html">Decor</a>
-            <a href="furniture.html">Furniture</a>
-            <a href="bath.html">Bath</a>
-          </div>
-          <div class="link-group">
-            <h4>Contact</h4>
-            <a href="mailto:moobaid605@gmail.com" style="text-transform: none; opacity: 1;">moobaid605@gmail.com</a>
-            <a href="tel:+918954940821" style="opacity: 1;">+91 89549 40821</a>
-            <p style="font-family: var(--font-body); font-size: 0.95rem; opacity: 0.7; margin-top: 0.4rem; color: var(--ivory);">Moradabad, India</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-right-area reveal">
-        <div class="footer-brand-area">
-          <h3 class="footer-brand-name">Get in Touch</h3>
-          <p class="footer-brand-tagline">For wholesale inquiries, custom orders, or collaborations.</p>
-        </div>
-        
-        <div class="footer-form-area">
-          <form action="#" method="POST" class="footer-contact-form">
-            <div class="form-row">
-              <input type="text" placeholder="Full Name" required />
-              <input type="email" placeholder="Email Address" required />
-            </div>
-            <textarea placeholder="Your Message" rows="3" required></textarea>
-            <button type="submit" class="form-submit-btn-lg">Send Message &nbsp;→</button>
-          </form>
+  <!-- PRODUCT MODAL -->
+  <div class="product-modal" id="product-modal" aria-hidden="true">
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+    <div class="modal-container">
+      <div class="modal-content" id="modal-content">
+        <div class="modal-image-area">
+          <img src="" alt="Product Image" id="modal-img" />
         </div>
       </div>
     </div>
-    
+  </div>
 
-  </footer>
-
-  <script src="app.js"></script>
+  <script src="premium.js?v=9"></script>
+  <script src="app.js?v=1"></script>
 </body>
 </html>

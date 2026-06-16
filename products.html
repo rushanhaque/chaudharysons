@@ -3,133 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Products — Choudhry Sons Exports</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>All Collections — Choudhry Sons Exports</title>
+  <meta name="description" content="Browse all six collections of handcrafted metal artistry from Choudhry Sons Exports — Decor, Furniture, Mirrors & Art, Bath, Atelier and Lighting." />
+  <link rel="stylesheet" href="style.css?v=1" />
+  <link rel="stylesheet" href="components.css?v=1" />
+  <link rel="stylesheet" href="premium.css?v=7" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300..800&family=Inter:wght@300..700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet" />
+  <meta name="theme-color" content="#441b26" />
 </head>
-<body>
+<body data-page="products">
 
-  <!-- HEADER -->
-  <header class="site-header" id="site-header">
-    <div class="header-top">
-      <a href="index.html" class="brand" id="brand-logo">
-        <span class="brand-name">Choudhry Sons Exports</span>
-        <span class="brand-sub">Est. 1974</span>
-      </a>
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="header-bottom">
-      <nav class="main-nav" id="main-nav">
-        <a href="decor.html" class="nav-link">Decor</a>
-        <a href="furniture.html" class="nav-link">Furniture</a>
-        <a href="mirror-and-art.html" class="nav-link">Mirrors & Art</a>
-        <a href="bath.html" class="nav-link">Bath</a>
-        <a href="atelier.html" class="nav-link">Atelier</a>
-        <a href="lighting.html" class="nav-link">Lighting</a>
-      </nav>
-    </div>
-  </header>
+  <!-- HEADER (injected by premium.js) -->
+  <div id="cs-header"></div>
 
   <!-- PAGE HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Our Products</h1>
-    <p class="page-subtitle">A diverse collection of masterfully crafted metalwares, designed to bring elegance into everyday life.</p>
+    <h1 class="page-title">Our <em>Collections</em></h1>
+    <p class="page-subtitle">Six distinct worlds of metal artistry — each masterfully crafted to bring enduring elegance into everyday life.</p>
   </div>
 
-  <!-- PRODUCTS GRID -->
-  <main class="products-grid">
-    <!-- Decor -->
-    <a href="decor.html" class="collection-tile card" style="display: block;">
-      <div class="tile-image placeholder-img"></div>
-      <div class="border"></div>
-      <div class="content">
-        <h3 class="tile-name">Decor</h3>
-        <p class="tile-tagline">Elevate your living spaces</p>
-      </div>
-    </a>
-    <!-- Furniture -->
-    <a href="furniture.html" class="collection-tile card" style="display: block;">
-      <div class="tile-image placeholder-img"></div>
-      <div class="border"></div>
-      <div class="content">
-        <h3 class="tile-name">Furniture</h3>
-        <p class="tile-tagline">Crafted for comfort & style</p>
-      </div>
-    </a>
-    <!-- Mirrors & Art -->
-    <a href="mirror-and-art.html" class="collection-tile card" style="display: block;">
-      <div class="tile-image placeholder-img"></div>
-      <div class="border"></div>
-      <div class="content">
-        <h3 class="tile-name">Mirrors & Art</h3>
-        <p class="tile-tagline">Reflect your unique style</p>
-      </div>
-    </a>
-    <!-- Bath -->
-    <a href="bath.html" class="collection-tile card" style="display: block;">
-      <div class="tile-image placeholder-img"></div>
-      <div class="border"></div>
-      <div class="content">
-        <h3 class="tile-name">Bath</h3>
-        <p class="tile-tagline">Luxurious sanctuary essentials</p>
-      </div>
-    </a>
-    <!-- Atelier -->
-    <a href="atelier.html" class="collection-tile card" style="display: block;">
-      <div class="tile-image placeholder-img"></div>
-      <div class="border"></div>
-      <div class="content">
-        <h3 class="tile-name">Atelier</h3>
-        <p class="tile-tagline">Bespoke artisan creations</p>
-      </div>
-    </a>
-    <!-- Lighting -->
-    <a href="lighting.html" class="collection-tile card" style="display: block;">
-      <div class="tile-image placeholder-img"></div>
-      <div class="border"></div>
-      <div class="content">
-        <h3 class="tile-name">Lighting</h3>
-        <p class="tile-tagline">Brilliant artistic designs</p>
-      </div>
-    </a>
+  <!-- COLLECTIONS GRID -->
+  <main class="collections" style="background:var(--ivory); padding-top: var(--space-3xl);">
+    <div class="cs-collections-grid">
+      <a href="decor.html" class="cs-collection reveal">
+        <div class="cs-collection__media"><img src="./assets/home%20decor.webp" alt="Decor collection" loading="lazy" /></div>
+        <div class="cs-collection__frame"></div><span class="cs-collection__index">01</span>
+        <div class="cs-collection__body"><span class="cs-collection__kicker">Collection</span><h3 class="cs-collection__title">Decor</h3><div class="cs-collection__rule"></div><p class="cs-collection__tagline">Sculptural objects that elevate every living space.</p><span class="cs-collection__cta">Explore Collection <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a href="furniture.html" class="cs-collection reveal">
+        <div class="cs-collection__media"><img src="./assets/furniture.webp" alt="Furniture collection" loading="lazy" /></div>
+        <div class="cs-collection__frame"></div><span class="cs-collection__index">02</span>
+        <div class="cs-collection__body"><span class="cs-collection__kicker">Collection</span><h3 class="cs-collection__title">Furniture</h3><div class="cs-collection__rule"></div><p class="cs-collection__tagline">Statement metal furniture crafted for comfort &amp; style.</p><span class="cs-collection__cta">Explore Collection <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a href="mirror-and-art.html" class="cs-collection reveal">
+        <div class="cs-collection__media"><img src="./assets/mirror%20and%20art.webp" alt="Mirrors & Art collection" loading="lazy" /></div>
+        <div class="cs-collection__frame"></div><span class="cs-collection__index">03</span>
+        <div class="cs-collection__body"><span class="cs-collection__kicker">Collection</span><h3 class="cs-collection__title">Mirrors &amp; Art</h3><div class="cs-collection__rule"></div><p class="cs-collection__tagline">Reflective heirlooms and wall art that command a room.</p><span class="cs-collection__cta">Explore Collection <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a href="bath.html" class="cs-collection reveal">
+        <div class="cs-collection__media"><img src="./assets/bathroom.webp" alt="Bath collection" loading="lazy" /></div>
+        <div class="cs-collection__frame"></div><span class="cs-collection__index">04</span>
+        <div class="cs-collection__body"><span class="cs-collection__kicker">Collection</span><h3 class="cs-collection__title">Bath</h3><div class="cs-collection__rule"></div><p class="cs-collection__tagline">Luxurious fittings &amp; sanctuary essentials in noble metal.</p><span class="cs-collection__cta">Explore Collection <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a href="atelier.html" class="cs-collection reveal">
+        <div class="cs-collection__media"><img src="./assets/atelier.webp" alt="Atelier collection" loading="lazy" /></div>
+        <div class="cs-collection__frame"></div><span class="cs-collection__index">05</span>
+        <div class="cs-collection__body"><span class="cs-collection__kicker">Collection</span><h3 class="cs-collection__title">Atelier</h3><div class="cs-collection__rule"></div><p class="cs-collection__tagline">Bespoke, one-of-a-kind commissions from our master bench.</p><span class="cs-collection__cta">Explore Collection <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a href="lighting.html" class="cs-collection reveal">
+        <div class="cs-collection__media"><img src="./assets/lighting.webp" alt="Lighting collection" loading="lazy" /></div>
+        <div class="cs-collection__frame"></div><span class="cs-collection__index">06</span>
+        <div class="cs-collection__body"><span class="cs-collection__kicker">Collection</span><h3 class="cs-collection__title">Lighting</h3><div class="cs-collection__rule"></div><p class="cs-collection__tagline">Lanterns &amp; fixtures that cast warmth and intricate shadow.</p><span class="cs-collection__cta">Explore Collection <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+    </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <h3 class="footer-brand-name">Choudhry Sons Exports</h3>
-        <p class="footer-brand-desc">Excellence in metal handicrafts since 1974.</p>
-      </div>
-      <div class="footer-links">
-        <div class="link-group">
-          <h4>Explore</h4>
-          <a href="products.html">Collections</a>
-          <a href="about.html">About Us</a>
-          <a href="gallery.html">Gallery</a>
-        </div>
-        <div class="link-group">
-          <h4>Support</h4>
-          <a href="contact.html">Contact Us</a>
-          <a href="#">Shipping & Returns</a>
-          <a href="#">FAQ</a>
-        </div>
-        <div class="link-group">
-          <h4>Contact</h4>
-          <p>moobaid605@gmail.com</p>
-          <p>+91 89549 40821</p>
-        </div>
+  <!-- BESPOKE CTA -->
+  <section class="cs-spotlight" style="margin-top: var(--space-3xl);">
+    <div class="cs-spotlight-inner" style="grid-template-columns:1fr; text-align:center;">
+      <div class="reveal" style="max-width:680px; margin:0 auto;">
+        <span class="cs-eyebrow cs-center">Bespoke Commissions</span>
+        <h2 style="margin-bottom:1rem;">Can't Find <em>Exactly</em> What You Imagine?</h2>
+        <p style="margin:0 auto 1.6rem;">Our atelier crafts made-to-order pieces and full hospitality collections. Share your vision and our master artisans will bring it to life in metal.</p>
+        <a class="cs-btn cs-btn--gold cs-magnetic" href="quote.html">Request a Bespoke Quote
+          <svg class="cs-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Choudhry Sons Exports All rights reserved.</p>
-    </div>
-  </footer>
+  </section>
 
-  <script src="app.js"></script>
+  <!-- FOOTER (injected by premium.js) -->
+  <div id="cs-footer"></div>
+
+  <script src="premium.js?v=9"></script>
+  <script src="app.js?v=1"></script>
 </body>
 </html>
